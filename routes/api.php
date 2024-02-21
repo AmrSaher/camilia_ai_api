@@ -17,7 +17,7 @@ use App\Http\Controllers\CalendarController;
 */
 
 // Calendar
-Route::controller(CalendarController::class)->middleware('api')->prefix('events')->group(function () {
+Route::controller(CalendarController::class)->middleware(['api', 'auth:api'])->prefix('events')->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
     Route::post('update/{event}', 'update');

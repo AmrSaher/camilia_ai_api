@@ -14,7 +14,8 @@ class CalendarController extends Controller
         $startDate = Carbon::parse($request->input('start'));
         $endDate = Carbon::parse($request->input('end'));
 
-        $events = Event::whereDate('start', '>=', $startDate)
+        $events = Event::where('user_id', auth()->id())
+            ->whereDate('start', '>=', $startDate)
             ->whereDate('end', '<=', $endDate)
             ->get();
 
@@ -29,6 +30,7 @@ class CalendarController extends Controller
             ...$attrs,
             'start' => Carbon::parse($attrs['start']),
             'end' => Carbon::parse($attrs['end']),
+            'user_id' => auth()->id(),
         ]);
 
         return response()->json([
