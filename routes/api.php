@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Calendar
+Route::controller(CalendarController::class)->prefix('events')->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::post('update/{event}', 'update');
+    Route::delete('/{event}', 'destroy');
 });
