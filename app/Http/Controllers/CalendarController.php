@@ -11,12 +11,11 @@ class CalendarController extends Controller
 {
     public function index(Request $request)
     {
-        $startDate = Carbon::parse($request->input('start'));
-        $endDate = Carbon::parse($request->input('end'));
+        $date = Carbon::parse($request->input('date'));
 
         $events = Event::where('user_id', auth()->id())
-            ->whereDate('start', '>=', $startDate)
-            ->whereDate('end', '<=', $endDate)
+            ->whereDate('start', '>=', $date)
+            ->whereDate('start', '<', $date->addDay(1))
             ->get();
 
         return response()->json($events, 200);
@@ -31,6 +30,7 @@ class CalendarController extends Controller
             'start' => Carbon::parse($attrs['start']),
             'end' => Carbon::parse($attrs['end']),
             'user_id' => auth()->id(),
+            'image' => 'https://picsum.photos/id/' . rand(1, 1000) . '/200',
         ]);
 
         return response()->json([

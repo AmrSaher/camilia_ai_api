@@ -13,6 +13,7 @@ class Event extends Model
         'start',
         'end',
         'user_id',
+        'image',
     ];
 
     public function user()
