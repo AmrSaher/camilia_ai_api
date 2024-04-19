@@ -30,7 +30,7 @@ class CalendarController extends Controller
             'start' => Carbon::parse($attrs['start']),
             'end' => Carbon::parse($attrs['end']),
             'user_id' => auth()->id(),
-            'image' => 'https://picsum.photos/id/' . rand(1, 1000) . '/200',
+            'image' => 'https://picsum.photos/id/' . rand(1, 100) . '/200',
         ]);
 
         return response()->json([

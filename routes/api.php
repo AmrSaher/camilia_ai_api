@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\JWTTokenValidationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +20,10 @@ use App\Http\Controllers\CalendarController;
 
 // Calendar
 Route::controller(CalendarController::class)->middleware(['api', 'auth:api'])->prefix('events')->group(function () {
-    Route::post('/get', 'index');
+    Route::post('get', 'index');
     Route::post('/', 'store');
     Route::post('update/{event}', 'update');
-    Route::delete('/{event}', 'destroy');
+    Route::delete('{event}', 'destroy');
 });
 
 // Auth
@@ -30,4 +32,14 @@ Route::controller(AuthController::class)->middleware('api')->prefix('auth')->gro
     Route::post('login', 'login')->middleware('guest:api');
     Route::post('register', 'register')->middleware('guest:api');
     Route::post('logout', 'logout')->middleware('auth:api');
+});
+
+// Tasks
+Route::controller(TasksController::class)->middleware(['api', 'auth:api'])->prefix('tasks')->group(function () {
+    Route::get('/', 'index');
+});
+
+// JWT Token
+Route::controller(JWTTokenValidationController::class)->middleware(['api'])->prefix('token')->group(function () {
+    Route::get('validate/{token}', 'validateToken');
 });
