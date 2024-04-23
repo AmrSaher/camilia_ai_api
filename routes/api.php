@@ -5,7 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CalendarController;
+<<<<<<< HEAD
 use App\Http\Controllers\MessagesController;
+=======
+>>>>>>> 4691e566a54cbbf7be64d5734d0618f24759073f
 use App\Http\Controllers\JWTTokenValidationController;
 
 /*
@@ -35,18 +38,27 @@ Route::controller(AuthController::class)->middleware('api')->prefix('auth')->gro
     Route::post('logout', 'logout')->middleware('auth:api');
 });
 
+<<<<<<< HEAD
 // JWT Token
 Route::controller(JWTTokenValidationController::class)->middleware(['api'])->prefix('token')->group(function () {
     Route::get('validate/{token}', 'validateToken');
 });
 
+=======
+>>>>>>> 4691e566a54cbbf7be64d5734d0618f24759073f
 // Tasks
 Route::controller(TasksController::class)->middleware(['api', 'auth:api'])->prefix('tasks')->group(function () {
     Route::get('/', 'index');
 });
 
+<<<<<<< HEAD
 // Messages
 Route::controller(MessagesController::class)->middleware(['api', 'auth:api'])->prefix('messages')->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+=======
+// JWT Token
+Route::controller(JWTTokenValidationController::class)->middleware(['api'])->prefix('token')->group(function () {
+    Route::get('validate/{token}', 'validateToken');
+>>>>>>> 4691e566a54cbbf7be64d5734d0618f24759073f
 });
